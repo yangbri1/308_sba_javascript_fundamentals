@@ -97,19 +97,70 @@ const CourseInfo = {
     const result = [];
 
     // declare empty student object to collect data
-    // let student = {};
-    // student['id'] = 125;
+    let student = {};
+    student['id'] = 125;
+
+    // declare student objects to collect data
+    const student_a = {
+      id: 125
+    };
+
+    const student_b = {
+      id: 132
+    };
+
+    let score_a = 0;
+    let score_b = 0;
+
+    let sub_a_count = 0;
+    let sub_b_count = 0;
+
+    let avg_a = 0;
+    let avg_b = 0;
+
     
-    // // iterate through the parameter course(CourseInfo)
-    // for(let i = 0; i < course.length; i++){
-    //   // declare empty student object to collect data
-    //   let student = {};
-    //   student[id] = 125;
-    //   console.log(student);
-    // }
+    // const d = new Date("3156-11-15");
+    // const date = new Date("3156-11-15");
+
+    // console.log(d.getTime() === date.getTime());
+
+    // iterate through the parameter submissions (LearnSubmissions)
+    for(let i = 0; i < submissions.length; i++){  // total of 5 submissions 
+
+      // let due_date = ag.assignments[i]
+      // if(submissions[i].submission.submitted_at.getTime() <= )
+
+      // if the detected learner has an id number of 125
+      if(submissions[i].learner_id === student_a.id){
+        // add his score to his previous record
+        score_a += submissions[i].submission.score;
+        //console.log(score_a);
+        // increment by 1 to count numbers of submission by student 125
+        sub_a_count++;
+
+      }
+
+      // if the detected learner has an id number of 132
+      else if(submissions[i].learner_id === student_b.id){
+        // add his score to his previous record
+        score_b += submissions[i].submission.score;
+        console.log(submissions[i].submission.score);
+        // increment by 1 to counter numbers of submission by student 132
+        sub_b_count++;
+      }
+      
+      // student['id'] = 125;
+      // console.log(student);
+    }
+    student_a['score'] = score_a;
+    student_b['score'] = score_b;
+    console.log(student_b);
+
+
+    // console.log(score_a, score_b);
     
-    return student;
-    // return result;
+    //return student;
+    // return result; <-- un-note this later
   }
   
   const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
