@@ -78,6 +78,26 @@ const CourseInfo = {
   
   function getLearnerData(course, ag, submissions) {
     // here, we would process this data to achieve the desired result.
+
+    // try-catch block here to test if the assignments aligned with course material
+    try{
+      // if the assignment group's id matches w/ the course's id
+      if(ag.course_id !== course.id){
+        // print out successful status
+        console.log("Assignments doesn't match the course material");
+      }
+      // otherwise ...
+      else{
+        // notify the user of the course-assignments mismatch
+        throw "Assignments are related to course material";
+      }
+    }
+    // catching any errors thrown during the error handling procedure
+    catch(error){
+      // console.log() out exact error
+      console.log(error);
+    }
+
     // const result = [
     //   {
     //     id: 125,
@@ -98,7 +118,7 @@ const CourseInfo = {
 
     // declare empty student object to collect data
     let student = {};
-    student['id'] = 125;
+    // student['id'] = 125;
 
     // declare student objects to collect data
     const student_a = {
@@ -115,48 +135,72 @@ const CourseInfo = {
     let sub_a_count = 0;
     let sub_b_count = 0;
 
+    let total_points_a = 0;
+    let total_points_b = 0;
+
     let avg_a = 0;
     let avg_b = 0;
 
-    
+    let example_array = [1];
+    example_array.push(1);
+    console.log(example_array);
     // const d = new Date("3156-11-15");
     // const date = new Date("3156-11-15");
 
     // console.log(d.getTime() === date.getTime());
 
+    // loops through the group of assignments 
+    // for(let j = 0; j < ag.assignments.length; j++){
+
+    // }
     // iterate through the parameter submissions (LearnSubmissions)
     for(let i = 0; i < submissions.length; i++){  // total of 5 submissions 
 
+      //student['id'] = submissions[i].learner_id;
+      student = {
+        id: submissions[i].learner_id
+      }
+      // if(student)
+      student['id'] = submissions[i].learner_id;
+      result.push(student);
+      // if(submissions[i].learner_id !== ""){
+      //   student['id'] = submissions[i].learner_id;
+      //   result.push(student);
+      // }
+
+      // if(submissions[i].assignment_id in ag.assignments.id){
+
+      // }
       // let due_date = ag.assignments[i]
       // if(submissions[i].submission.submitted_at.getTime() <= )
 
-      // if the detected learner has an id number of 125
-      if(submissions[i].learner_id === student_a.id){
-        // add his score to his previous record
-        score_a += submissions[i].submission.score;
-        //console.log(score_a);
-        // increment by 1 to count numbers of submission by student 125
-        sub_a_count++;
+      // // if the detected learner has an id number of 125
+      // if(submissions[i].learner_id === student_a.id){
+      //   // add his score to his previous record
+      //   score_a += submissions[i].submission.score;
+      //   //console.log(score_a);
+      //   // increment by 1 to count numbers of submission by student 125
+      //   sub_a_count++;
 
-      }
+      // }
 
-      // if the detected learner has an id number of 132
-      else if(submissions[i].learner_id === student_b.id){
-        // add his score to his previous record
-        score_b += submissions[i].submission.score;
-        console.log(submissions[i].submission.score);
-        // increment by 1 to counter numbers of submission by student 132
-        sub_b_count++;
-      }
+      // // if the detected learner has an id number of 132
+      // else if(submissions[i].learner_id === student_b.id){
+      //   // add his score to his previous record
+      //   score_b += submissions[i].submission.score;
+      //   console.log(submissions[i].submission.score);
+      //   // increment by 1 to counter numbers of submission by student 132
+      //   sub_b_count++;
+      // }
       
       // student['id'] = 125;
       // console.log(student);
     }
-    student_a['score'] = score_a;
-    student_b['score'] = score_b;
-    console.log(student_b);
+    // student_a['score'] = score_a;
+    // student_b['score'] = score_b;
+    // console.log(student_b);
 
-
+    console.log(result);
     // console.log(score_a, score_b);
     
     //return student;
