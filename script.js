@@ -141,9 +141,6 @@ const CourseInfo = {
     let avg_a = 0;
     let avg_b = 0;
 
-    let example_array = [1];
-    example_array.push(1);
-    console.log(example_array);
     // const d = new Date("3156-11-15");
     // const date = new Date("3156-11-15");
 
@@ -156,13 +153,13 @@ const CourseInfo = {
     // iterate through the parameter submissions (LearnSubmissions)
     for(let i = 0; i < submissions.length; i++){  // total of 5 submissions 
 
-      //student['id'] = submissions[i].learner_id;
-      student = {
-        id: submissions[i].learner_id
-      }
-      // if(student)
+      // student = {
+      //   id: submissions[i].learner_id
+      // }
       student['id'] = submissions[i].learner_id;
+      if(student.id === result[])
       result.push(student);
+
       // if(submissions[i].learner_id !== ""){
       //   student['id'] = submissions[i].learner_id;
       //   result.push(student);
@@ -210,3 +207,16 @@ const CourseInfo = {
   const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
   
   console.log(result);
+
+  let array1 = [1, 2, 1, 3, 4, 3];
+  function delete_duplicates(arry){
+    arry.reduce((accumulator, unique_student_id => {
+      if(!accumulator.includes(unique_student_id)){
+        accumulator.push(unique_student_id);
+      }
+      return accumulator;
+    }))
+    
+  }
+
+  console.log()
