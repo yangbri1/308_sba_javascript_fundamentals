@@ -122,31 +122,45 @@ function getLearnerData(course, ag, submissions) {
 
   });
   
-  // declare empty array to grab each possible total assignment points
-  let assign_total_pts = [];
+  // declare empty object to grab each possible total assignment points
+  let assign_total_pts = {};
 
   // for-in loop for each total assignment points
   for(let key in ag.assignments){
-
-    // append each elements to freshly made assign_total_pts array above
-    assign_total_pts.push(ag.assignments[key].points_possible);
-
+    // console.log(typeof key);
+    // append each elements to freshly made assign_total_pts object above
+    //assign_total_pts.push(ag.assignments[key].points_possible);
+    assign_total_pts[`${Number(key)+1}`] = ag.assignments[key].points_possible;
   }
-  //console.log(assign_total_pts);
+  console.log(assign_total_pts);
   // iterate through the LearnerSubmissions array
-  for(let i = 0; i < submissions.length; i++){ // loops 5 time
-    // if submission id matches to 1st student ...
-    if(submissions[i].learner_id === result[0].id){
-      // and if the submitted assignment id is 1 ...
-      if(submissions[i].assignment_id === 1){
-        //submissions[0].submissions.score / assign_total_pts[0]
-      }
-    } 
-    // if submission id matches to the 2nd student
-    if(submissions[i].learner_id === result[1].id){
-      // submissions[]
-      console.log(result[0].id);
-    }
+  for(let i = 0; i < submissions.length; i++){ // loops 5 times
+    // utilize the built-in .getTime() method to convert the date to milliseconds since 1-1-1970
+    /* NOTE: .getTime() method is a part of the Date object not String 
+    so had to cast the array string element to a Date object */
+    let submission_date = new Date(submissions[i].submission.submitted_at);
+    //console.log(typeof submission_date, submission_date.getTime());
+    // let due_date = new Date(ag.assignments.due_at).getTime();
+    let due_date = due_dates(ag);
+
+    console.log(due_date);
+    // if the assignment was submitted after the due date had passed
+    // if(submission_date > due_date){
+      
+    // }
+    // // if submission id matches to 1st student ...
+    // if(submissions[i].learner_id === result[0].id){
+    //   // and if the submitted assignment id is 1 ...
+    //   if(submissions[i].assignment_id === 1){
+    //     //submissions[0].submissions.score / assign_total_pts[0]
+
+    //   }
+    // } 
+    // // if submission id matches to the 2nd student
+    // if(submissions[i].learner_id === result[1].id){
+    //   // submissions[]
+    //   console.log(result[0].id);
+    // }
   }
   
   let avg_one = submissions[0].submission.score / ag.assignments[0].points_possible;
@@ -251,9 +265,11 @@ console.log(result);
 
 // helper functions
 
+// create an array of unique student id (no repeats)
 function unique_student_id(submissions){
   const unique_student = [];
   const student = {};
+  // loops through submissions
   for(let i = 0; i < submissions.length; i++){
     // .includes() array method checks if unique_student_id array already holds learner_id
     if(unique_student.includes(submissions[i].learner_id) == false){
@@ -265,3 +281,14 @@ function unique_student_id(submissions){
 }
 // const unique_id_array = unique_student_id(LearnerSubmissions);
 // console.log(unique_id_array);
+
+function due_dates(ag){
+  let due_date_array = [];
+  let k = 0;
+  while(k < ag.assignments.length){
+    let dd = new Date(ag.assignments[k].due_at).getTime();
+    due_date_array.push(dd);
+    k++;
+  }
+  return due_date_array;
+}
