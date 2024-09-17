@@ -134,7 +134,7 @@ function getLearnerData(course, ag, submissions) {
     // console.log(typeof key);
     // append each elements to freshly made assign_total_pts object above
     //assign_total_pts.push(ag.assignments[key].points_possible);
-    assign_total_pts[`${Number(key)}`] = ag.assignments[key].points_possible;
+    assign_total_pts[`${Number(key)+1}`] = ag.assignments[key].points_possible;
     
     
   }
@@ -148,14 +148,15 @@ function getLearnerData(course, ag, submissions) {
     let score = submissions[i].submission.score; // retrieve submission score
     //console.log(score);
     let assign_id = submissions[i].assignment_id; // submission assignment id
-    //console.log(assign_id);
+    console.log(assign_id);
     // for(let j = 0; j < unique_id_array.length; j++){
       if(submission_date > due_date[Number(assign_id-1)]){ // index to respective due date 
         console.log(score);
-        console.log(assign_total_pts);
-        num += score - (assign_total_pts.assign_id * 0.1);
-        //console.log(num);
-        total_pts += assign_total_pts.assign_id;
+        //console.log(assign_total_pts[assign_id]);
+        num += score - (assign_total_pts[assign_id] * 0.1); // used square brackets to access object since dot notation didn't work here
+        console.log(num);
+        total_pts += assign_total_pts[assign_id];
+        console.log(total_pts);
       }
       else if(submission_date == due_date[Number(assign_id-1)]){
         total_pts += assign_total_pts.assign_id;
