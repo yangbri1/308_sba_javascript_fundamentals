@@ -139,16 +139,22 @@ function getLearnerData(course, ag, submissions) {
     
   }
   let score_ary = [];
-  let num = 0;
-  total_pts = 0;
+  let flag = false; // set a flag to check if there are any crazy far due dates
+  let skips_counter = 0;
+  // let num = 0;
+  // let total_pts = 0;
   for(let i = 0; i < submissions.length; i++){
     
-    let submission_date = new Date(submissions[i].submission.submitted_at); // submission date in milliseconds
+    let num = 0;
+    let total_pts = 0;
+    let submission_date = new Date(submissions[i].submission.submitted_at) / ( 1000 * 3600 * 24); // submission date from milliseconds to days
     let due_date = due_dates(ag); // array of due_dates in milliseconds
+    // console.log(typeof due_date[0]);
     let score = submissions[i].submission.score; // retrieve submission score
     //console.log(score);
     let assign_id = submissions[i].assignment_id; // submission assignment id
     console.log(assign_id);
+    
     // for(let j = 0; j < unique_id_array.length; j++){
       if(submission_date > due_date[Number(assign_id-1)]){ // index to respective due date 
         console.log(score);
@@ -157,19 +163,80 @@ function getLearnerData(course, ag, submissions) {
         console.log(num);
         total_pts += assign_total_pts[assign_id];
         console.log(total_pts);
+        // score_ary.push(total_pts);
+        
       }
-      else if(submission_date == due_date[Number(assign_id-1)]){
-        total_pts += assign_total_pts.assign_id;
+      // if submission date have NOT hit the deadline ...
+      else if(submission_date < due_date[Number(assign_id-1)]){
+        // allocate memory to carry value of nearby bound (arbitrary)-- 25 days
+        let near_date = due_date[Number(assign_id-1)] - 25;
+        // if submission date were to be within the range
+        if(submission_date > near_date){
+          // append to both sum of scores & total available points
+          num += score;
+          total_pts += assign_total_pts[assign_id];
+        }
+        // if submission date exceeds the near date bounds
+        else{
+          // throw up a flag -- indicating there was a skipped assignment
+          flag = true;
+          // rack up number of time this else block was accessed
+          skips_counter++;
+          // skip the rest of this iteration
+          continue;
+        }
 
       }
+      // otherwise if the submission date is spot on the due_date
       else{
-
+        // saves both score and available points
+        num += score;
+        total_pts += assign_total_pts[assign_id];
       }
+      score_ary.push(num / total_pts);
+      // result[submissions[i].]
     // }
     //console.log(num);
   }
-  // console.log(num);
+  //console.log(num, total_pts);
+  console.log(flag);
+  console.log(skips_counter);
+  console.log(score_ary);
   console.log(assign_total_pts);
+
+  let num_valid;
+  let assign_avg_count;
+
+  // if there was some assignments not factored in
+  if(flag === true){
+    // and if the length of the average scores were to be a multiple of student count
+    if(score_ary.length % unique_id_array.length == 0){
+      // delegate how many of the entries will be given to each student object in results
+      assign_avg_count = score_ary.length / unique_id_array.length;
+    }
+    // otherwise
+    else{
+      /* delegate the known entries to their respective student object --- although every assignment's due date
+      is the same for everyone so if it falls outside the bound for one student, it should be the same for everyone
+      --- this case might not even matter */
+      assign_avg_count = Math.floor(score_ary.length / unique_id_array.length);
+    }
+  }
+
+  console.log(assign_avg_count);
+
+  let m = 0;
+  while(m < unique_id_array.length){
+
+    for(let k = 0; k < assign_avg_count; k++){
+      let first_score = score_ary.shift();
+      result[m][`${k+1}`] = first_score;  // NOTE: objects consists of unordered key-value pairs unlike ordered array
+    
+    }
+    m++;
+  }
+  console.log(result);
+  
   // iterate through the LearnerSubmissions array
   for(let i = 0; i < submissions.length; i++){ // loops 5 times
     // utilize the built-in .getTime() method to convert the date to milliseconds since 1-1-1970
@@ -326,7 +393,8 @@ function due_dates(ag){
   let k = 0;
   while(k < ag.assignments.length){
     let dd = new Date(ag.assignments[k].due_at).getTime();
-    due_date_array.push(dd);
+    let days = dd / (1000 * 3600 * 24)
+    due_date_array.push(days);
     k++;
   }
   return due_date_array;
