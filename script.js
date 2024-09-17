@@ -81,6 +81,7 @@ function getLearnerData(course, ag, submissions) {
 
   // try-catch block here to test if the assignments aligned with course material
   try{
+    
     // if the assignment group's id matches w/ the course's id
     if(ag.course_id !== course.id){
       // print out successful status
@@ -97,6 +98,9 @@ function getLearnerData(course, ag, submissions) {
     // console.log() out exact error
     console.log(error);
   }
+
+  // apply the array method .sort() to sort the submissions alphabetically, although arrays are ordered already...
+  submissions.sort();
 
   // declare empty result array to append objects
   const result = [];
@@ -117,6 +121,47 @@ function getLearnerData(course, ag, submissions) {
     result.push(student);
 
   });
+  
+  // declare empty array to grab each possible total assignment points
+  let assign_total_pts = [];
+
+  // for-in loop for each total assignment points
+  for(let key in ag.assignments){
+
+    // append each elements to freshly made assign_total_pts array above
+    assign_total_pts.push(ag.assignments[key].points_possible);
+
+  }
+  //console.log(assign_total_pts);
+  // iterate through the LearnerSubmissions array
+  for(let i = 0; i < submissions.length; i++){ // loops 5 time
+    // if submission id matches to 1st student ...
+    if(submissions[i].learner_id === result[0].id){
+      // and if the submitted assignment id is 1 ...
+      if(submissions[i].assignment_id === 1){
+        //submissions[0].submissions.score / assign_total_pts[0]
+      }
+    } 
+    // if submission id matches to the 2nd student
+    if(submissions[i].learner_id === result[1].id){
+      // submissions[]
+      console.log(result[0].id);
+    }
+  }
+  
+  let avg_one = submissions[0].submission.score / ag.assignments[0].points_possible;
+  let avg_two = submissions[1].submission.score / ag.assignments[1].points_possible;
+  console.log(avg_one);
+  console.log(avg_two);
+
+  let avg_1 = submissions[3].submission.score / ag.assignments[0].points_possible;
+  let avg_2 = (submissions[4].submission.score - (ag.assignments[1].points_possible * 0.10)) / ag.assignments[1].points_possible;
+  console.log(avg_1);
+  console.log(avg_2);
+
+  // for(let i = 0; i < ){
+  //   let avg_one = submissions[0].submission.score / ag.assignments[0].points_possible;
+  // }
 
   // const result = [
   //   {
@@ -191,7 +236,6 @@ function getLearnerData(course, ag, submissions) {
   // console.log(student_b);
 
   console.log(result);
-  console.log(unique_student_id);
   // console.log(score_a, score_b);
   
   //return student;
@@ -203,8 +247,7 @@ const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 console.log(result);
 
 
-const avg_one = average_score_one(AssignmentGroup, LearnerSubmissions);
-console.log(avg_one);
+
 
 // helper functions
 
@@ -212,7 +255,7 @@ function unique_student_id(submissions){
   const unique_student = [];
   const student = {};
   for(let i = 0; i < submissions.length; i++){
-    // .includes() array method checks if unique_student_id array already holds the  learner_id
+    // .includes() array method checks if unique_student_id array already holds learner_id
     if(unique_student.includes(submissions[i].learner_id) == false){
       // if NOT .push() the id to unique_student_id
       unique_student.push(submissions[i].learner_id);
@@ -222,8 +265,3 @@ function unique_student_id(submissions){
 }
 // const unique_id_array = unique_student_id(LearnerSubmissions);
 // console.log(unique_id_array);
-
-function average_score_one(ag, submissions){
-  let avg_one = submissions[0].submission.score / ag.assignments[0].points_possible;
-  return avg_one;
-}
