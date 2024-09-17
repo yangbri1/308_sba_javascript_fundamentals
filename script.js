@@ -79,6 +79,12 @@ const LearnerSubmissions = [
 function getLearnerData(course, ag, submissions) {
   // here, we would process this data to achieve the desired result.
 
+  // declare empty result array to append objects
+  const result = [];
+
+  // apply the array method .sort() to sort the submissions alphabetically, although arrays are ordered already...
+  submissions.sort();
+
   // try-catch block here to test if the assignments aligned with course material
   try{
     
@@ -99,11 +105,9 @@ function getLearnerData(course, ag, submissions) {
     console.log(error);
   }
 
-  // apply the array method .sort() to sort the submissions alphabetically, although arrays are ordered already...
-  submissions.sort();
+  
 
-  // declare empty result array to append objects
-  const result = [];
+  
 
   // call the unique_student_id function for no duplicates of student id
   const unique_id_array = unique_student_id(submissions);
@@ -130,8 +134,40 @@ function getLearnerData(course, ag, submissions) {
     // console.log(typeof key);
     // append each elements to freshly made assign_total_pts object above
     //assign_total_pts.push(ag.assignments[key].points_possible);
-    assign_total_pts[`${Number(key)+1}`] = ag.assignments[key].points_possible;
+    assign_total_pts[`${Number(key)}`] = ag.assignments[key].points_possible;
+    
+    
   }
+  let score_ary = [];
+  let num = 0;
+  total_pts = 0;
+  for(let i = 0; i < submissions.length; i++){
+    
+    let submission_date = new Date(submissions[i].submission.submitted_at); // submission date in milliseconds
+    let due_date = due_dates(ag); // array of due_dates in milliseconds
+    let score = submissions[i].submission.score; // retrieve submission score
+    //console.log(score);
+    let assign_id = submissions[i].assignment_id; // submission assignment id
+    //console.log(assign_id);
+    // for(let j = 0; j < unique_id_array.length; j++){
+      if(submission_date > due_date[Number(assign_id-1)]){ // index to respective due date 
+        console.log(score);
+        console.log(assign_total_pts);
+        num += score - (assign_total_pts.assign_id * 0.1);
+        //console.log(num);
+        total_pts += assign_total_pts.assign_id;
+      }
+      else if(submission_date == due_date[Number(assign_id-1)]){
+        total_pts += assign_total_pts.assign_id;
+
+      }
+      else{
+
+      }
+    // }
+    //console.log(num);
+  }
+  // console.log(num);
   console.log(assign_total_pts);
   // iterate through the LearnerSubmissions array
   for(let i = 0; i < submissions.length; i++){ // loops 5 times
@@ -142,12 +178,13 @@ function getLearnerData(course, ag, submissions) {
     //console.log(typeof submission_date, submission_date.getTime());
     // let due_date = new Date(ag.assignments.due_at).getTime();
     let due_date = due_dates(ag);
-
-    console.log(due_date);
+    // console.log(due_date);
+    
     // if the assignment was submitted after the due date had passed
     // if(submission_date > due_date){
-      
     // }
+
+
     // // if submission id matches to 1st student ...
     // if(submissions[i].learner_id === result[0].id){
     //   // and if the submitted assignment id is 1 ...
@@ -192,7 +229,8 @@ function getLearnerData(course, ag, submissions) {
   //   }
   // ];
 
-  let score_a = 0;
+  let numerator_sum = 0;
+  let denominator_sum = 0;
   let score_b = 0;
 
   let sub_a_count = 0;
@@ -223,21 +261,21 @@ function getLearnerData(course, ag, submissions) {
     // let due_date = ag.assignments[i]
     // if(submissions[i].submission.submitted_at.getTime() <= )
 
-    // // if the detected learner has an id number of 125
-    // if(submissions[i].learner_id === student_a.id){
-    //   // add his score to his previous record
-    //   score_a += submissions[i].submission.score;
-    //   //console.log(score_a);
-    //   // increment by 1 to count numbers of submission by student 125
-    //   sub_a_count++;
+    // if the learner id is detected as valid
+    if(unique_id_array.includes(submissions[i].learner_id)){
+      // add his score to his previous record
+      numerator_sum += submissions[i].submission.score;
+      //console.log(score_a);
+      // increment by 1 to count numbers of submission by student 125
+      sub_a_count++;
 
-    // }
+    }
 
     // // if the detected learner has an id number of 132
-    // else if(submissions[i].learner_id === student_b.id){
+    // else if(submissions[i].learner_id === unique_id_array[1]){
     //   // add his score to his previous record
-    //   score_b += submissions[i].submission.score;
-    //   console.log(submissions[i].submission.score);
+    //   score_b += submissions[i].submission.score / 200;
+    //   //console.log(submissions[i].submission.score);
     //   // increment by 1 to counter numbers of submission by student 132
     //   sub_b_count++;
     // }
@@ -249,11 +287,11 @@ function getLearnerData(course, ag, submissions) {
   // student_b['score'] = score_b;
   // console.log(student_b);
 
-  console.log(result);
-  // console.log(score_a, score_b);
+  //console.log(result);
+  console.log(numerator_sum);
   
-  //return student;
-  // return result; <-- un-note this later
+  
+  return result; // un-note this later
 }
 
 const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
