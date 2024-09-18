@@ -241,10 +241,11 @@ function getLearnerData(course, ag, submissions) {
   
   
   let m = 0;
-  let student_sum = 0;
+  
   // iterate through array of students
   while(m < unique_id_array.length){
     
+    let student_sum = 0;
     // cycles through one particular student's grades
     let k = 0
     for(; k < assign_avg_count; k++){
@@ -259,11 +260,17 @@ function getLearnerData(course, ag, submissions) {
       result[m][`${k+1}`] = first_score;  // NOTE: objects consists of unordered key-value pairs unlike ordered array
     
     }
-    console.log("k", k);
+    
     // result[m]['avg'] = student_sum; //ag.assignments[];
-    result[m]['avg'] =  student_sum / total_avg_pts * 2
+    result[m]['avg'] =  student_sum / total_avg_pts * 2;
+    console.log("k", k);
+    
+    num_ary.splice(0,2);
+    console.log("did num_ary change?", num_ary);
+    //student_sum = 0;
     m++;
   }
+  console.log("num_ary outside scope", num_ary);
   console.log(result);
   
   // iterate through the LearnerSubmissions array
