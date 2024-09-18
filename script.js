@@ -138,7 +138,10 @@ function getLearnerData(course, ag, submissions) {
     
     
   }
-  let score_ary = [];
+  // declaration block
+  let score_ary = [];   // array of scores
+  let num_ary = []      // 
+  let total_avg_pts = 0;
   let flag = false; // set a flag to check if there are any crazy far due dates
   let skips_counter = 0;
   // let num = 0;
@@ -162,6 +165,7 @@ function getLearnerData(course, ag, submissions) {
         num += score - (assign_total_pts[assign_id] * 0.1); // used square brackets to access object since dot notation didn't work here
         console.log(num);
         total_pts += assign_total_pts[assign_id];
+        total_avg_pts += total_pts;
         console.log(total_pts);
         // score_ary.push(total_pts);
         
@@ -175,6 +179,7 @@ function getLearnerData(course, ag, submissions) {
           // append to both sum of scores & total available points
           num += score;
           total_pts += assign_total_pts[assign_id];
+          total_avg_pts += total_pts;
         }
         // if submission date exceeds the near date bounds
         else{
@@ -192,20 +197,29 @@ function getLearnerData(course, ag, submissions) {
         // saves both score and available points
         num += score;
         total_pts += assign_total_pts[assign_id];
+        total_avg_pts += total_pts;
       }
+      num_ary.push(num);
       score_ary.push(num / total_pts);
+      // total_avg_pts += total_pts;
+      
       // result[submissions[i].]
     // }
     //console.log(num);
+    console.log("num_ary", num_ary);
+    console.log("totally", total_avg_pts);
+    
   }
+  console.log(num_ary);
   //console.log(num, total_pts);
   console.log(flag);
   console.log(skips_counter);
   console.log(score_ary);
   console.log(assign_total_pts);
 
-  let num_valid;
-  let assign_avg_count;
+  // let num_valid;
+  // number of submitted assignments by each student
+  let assign_avg_count = 0;
 
   // if there was some assignments not factored in
   if(flag === true){
@@ -224,15 +238,30 @@ function getLearnerData(course, ag, submissions) {
   }
 
   console.log(assign_avg_count);
-
+  
+  
   let m = 0;
+  let student_sum = 0;
+  // iterate through array of students
   while(m < unique_id_array.length){
-
-    for(let k = 0; k < assign_avg_count; k++){
+    
+    // cycles through one particular student's grades
+    let k = 0
+    for(; k < assign_avg_count; k++){
+      // console.log(score_ary[0]);
+      // this one can stay at index 0 since .shift() is removing 1st element from array so score_ary[0] is changing per iteration
+      // student_sum += score_ary[0]; 
+      // console.log("hmmm", student_sum); // this was taking the sum of the already calculated average (not what we want)
+      student_sum += num_ary[k];
+      console.log(student_sum, "here"); 
       let first_score = score_ary.shift();
+      
       result[m][`${k+1}`] = first_score;  // NOTE: objects consists of unordered key-value pairs unlike ordered array
     
     }
+    console.log("k", k);
+    // result[m]['avg'] = student_sum; //ag.assignments[];
+    result[m]['avg'] =  student_sum / total_avg_pts * 2
     m++;
   }
   console.log(result);
@@ -270,13 +299,17 @@ function getLearnerData(course, ag, submissions) {
   
   let avg_one = submissions[0].submission.score / ag.assignments[0].points_possible;
   let avg_two = submissions[1].submission.score / ag.assignments[1].points_possible;
+  let avg_one_two = (submissions[0].submission.score + submissions[1].submission.score) / (ag.assignments[0].points_possible + ag.assignments[1].points_possible);
   console.log(avg_one);
   console.log(avg_two);
+  console.log("avg1", avg_one_two);
 
   let avg_1 = submissions[3].submission.score / ag.assignments[0].points_possible;
   let avg_2 = (submissions[4].submission.score - (ag.assignments[1].points_possible * 0.10)) / ag.assignments[1].points_possible;
+  let avg_1_2 = (submissions[3].submission.score + (submissions[4].submission.score - (ag.assignments[1].points_possible * 0.10))) / (ag.assignments[0].points_possible + ag.assignments[1].points_possible);
   console.log(avg_1);
   console.log(avg_2);
+  console.log("avg2", avg_1_2);
 
   // for(let i = 0; i < ){
   //   let avg_one = submissions[0].submission.score / ag.assignments[0].points_possible;
