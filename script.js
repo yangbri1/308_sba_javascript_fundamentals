@@ -129,6 +129,9 @@ function getLearnerData(course, ag, submissions) {
           }
         }
       }
+      console.log(`points_possible element checked for nonzero passed`);
+      console.log(`points_possible element checked for mon-string passed`);
+
     }
     // catch the thrown error from either points_possible element being 0 or a string
     catch(err){
@@ -152,10 +155,11 @@ function getLearnerData(course, ag, submissions) {
         throw("Learner's submission score is a string\n");
       }
       // otherwise prompt this
-      else{
-        console.log("Learner submission scores are valid\n");
-      }
+      // else{
+      //   console.log("Learner submission scores are valid\n");
+      // }
     }
+    console.log(`score element checked for non-string passed\n`);
   }
   // catch the thrown error
   catch(e){
