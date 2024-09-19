@@ -151,7 +151,7 @@ function getLearnerData(course, ag, submissions) {
     for(let z = 0; z < submissions.length; z++){
 
       // if learner submission is a string
-      if(typeof(submissions[z].submission.score) === 'string'){
+      if(typeof(submissions[z].submission.score) === 'number' && typeof(submissions[z].submission.score) === 'string'){
         throw("Learner's submission score is a string\n");
       }
       // otherwise prompt this
