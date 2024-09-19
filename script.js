@@ -21,7 +21,7 @@ const AssignmentGroup = {
       id: 2,
       name: "Write a Function",
       due_at: "2023-02-27",
-      points_possible: 150
+      points_possible: 0
     },
     {
       id: 3,
@@ -91,12 +91,12 @@ function getLearnerData(course, ag, submissions) {
     // if the assignment group's id matches w/ the course's id
     if(ag.course_id !== course.id){
       // print out successful status
-      console.log("Assignments doesn't match the course material\n");
+      throw("Assignments doesn't match the course material\n");
     }
     // otherwise ...
     else{
       // notify the user of the course-assignments mismatch
-      throw "Assignments are related to course material\n";
+      console.log("Assignments are related to course material");
     }
   }
   // catching any errors thrown during the error handling procedure
@@ -104,10 +104,78 @@ function getLearnerData(course, ag, submissions) {
     // console.log() out exact error
     console.log(error);
   }
+  // always execute no matter if the try-catch is executed or not
+  finally{
 
-  
+    // try-catch block to check if any of the assignment total points are worth 0 or if they are strings
+    try{
+      
+      // loop through the AssignmentGroup object of objects (and an array)
+      for(let z = 0; z < ag.assignments.length; z++){
 
-  
+        // check if the points_possible is a non-zero value
+        // if so could cause some arithmetic headaches (dividing by 0 ... jk JavaScript would implicitly convert)
+        if(ag.assignments[z].points_possible === 0){
+          // if so throw out a notification to the user
+          throw("No points will be awarded for this assignment");
+        }
+        // checks if the points_possible element is a 'number' data type ...
+        if(typeof(ag.assignments[z].points_possible) !== 'number'){
+          console.log("points_possible is not of 'number' type\n");
+          // if points_possible is NOT a data type ... is it a 'string'?
+          if(typeof(ag.assignments[z].points_possible) === 'string'){
+            // if so throw out error
+            throw("points_possible is of 'string' data type\n");
+          }
+        }
+      }
+    }
+    // catch the thrown error from either points_possible element being 0 or a string
+    catch(err){
+      // display the error
+      console.log(err);
+    }
+
+  }
+  //console.log(ag.assignments.length);
+
+  // try{
+  //   for
+  // }
+
+  console.log((ag.assignments[1].points_possible) === 0);
+  // // try-catch block to check if any of the assignment total points are worth 0 or if they are strings
+  // try{
+    
+  //   // loop through the AssignmentGroup object of objects (and an array)
+  //   for(let z = 0; z < ag.assignments[z]; z++){
+  //     // check if the points_possible is a non-zero value
+  //     // if so could cause some arithmetic headaches (dividing by 0 ... jk JavaScript would implicitly convert)
+  //     if(ag.assignments[z].points_possible === 0){
+  //       // if so throw out a notification to the user
+  //       throw("No points will be awarded for this assignment");
+  //     }
+  //     if(typeof(ag.assignments[z].points_possible) !== 'number'){
+  //       console.log("points_possible is not of 'number' type\n");
+  //       if(typeof(ag.assignments[z].points_possible) === 'string'){
+  //         throw("points_possible is of 'string' data type\n");
+  //       }
+  //     }
+  //   }
+  // }
+  // // catch the thrown error
+  // catch(err){
+  //   // display the error
+  //   console.log(err);
+  // }
+
+
+  // let str = 'abc';
+  // console.log(typeof(str) !== 'number'); 
+
+  // let a = 0;
+  // let b = 1; 
+  // console.log(b/a); // infinity -- does Not throw an error ...
 
   // call the unique_student_id function for no duplicates of student id
   const unique_id_array = unique_student_id(submissions);
@@ -139,10 +207,10 @@ function getLearnerData(course, ag, submissions) {
     
   }
   // declaration block
-  let score_ary = [];   // array of scores
-  let num_ary = []      // 
-  let total_avg_pts = 0;
-  let flag = false; // set a flag to check if there are any crazy far due dates
+  let score_ary = [];   // array of scores sum
+  let num_ary = []      // array of scores
+  let total_avg_pts = 0;// 
+  let flag = false;     // set a flag to check if there are any crazy far due dates
   let skips_counter = 0;
   // let num = 0;
   // let total_pts = 0;
@@ -199,6 +267,7 @@ function getLearnerData(course, ag, submissions) {
       total_pts += assign_total_pts[assign_id];
       total_avg_pts += total_pts;
     }
+    // push to respective arrays
     num_ary.push(num);
     score_ary.push(num / total_pts);
     // total_avg_pts += total_pts;
@@ -259,12 +328,13 @@ function getLearnerData(course, ag, submissions) {
     
     }
     
-    // result[m]['avg'] = student_sum; //ag.assignments[];
+    // 
     result[m]['avg'] =  student_sum / total_avg_pts * 2;
+    // result[m]['avg'] = student_sum; //ag.assignments[];
     // console.log("k", k);
 
     // starting from the 1st index in num_ary array remove 2 elements
-    num_ary.splice(0,2);
+    num_ary.splice(0, k);
 
     //console.log("did num_ary change?", num_ary);
     //student_sum = 0;
@@ -272,23 +342,9 @@ function getLearnerData(course, ag, submissions) {
   }
   // console.log("num_ary outside scope", num_ary);
   // console.log(result);
-  
-  
-  for(let i = 0; i < submissions.length; i++){ // loops 5 times
-    
-    let submission_date = new Date(submissions[i].submission.submitted_at);
-    //console.log(typeof submission_date, submission_date.getTime());
-    // let due_date = new Date(ag.assignments.due_at).getTime();
-    let due_date = due_dates(ag);
-    // console.log(due_date);
-    
-    // if the assignment was submitted after the due date had passed
-    // if(submission_date > due_date){
-    // }
 
-  }
 
-  // check math & practice dot calls for objects, brackets for arrays
+  // ONLY to check math & practice dot calls for objects, brackets for arrays
   // let avg_one = submissions[0].submission.score / ag.assignments[0].points_possible;
   // let avg_two = submissions[1].submission.score / ag.assignments[1].points_possible;
   // let avg_one_two = (submissions[0].submission.score + submissions[1].submission.score) / (ag.assignments[0].points_possible + ag.assignments[1].points_possible);
