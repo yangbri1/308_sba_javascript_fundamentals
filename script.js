@@ -21,7 +21,7 @@ const AssignmentGroup = {
       id: 2,
       name: "Write a Function",
       due_at: "2023-02-27",
-      points_possible: 0
+      points_possible: 150
     },
     {
       id: 3,
@@ -139,35 +139,29 @@ function getLearnerData(course, ag, submissions) {
   }
   //console.log(ag.assignments.length);
 
-  // try{
-  //   for
-  // }
+  // console.log((ag.assignments[1].points_possible) === 0);
 
-  console.log((ag.assignments[1].points_possible) === 0);
-  // // try-catch block to check if any of the assignment total points are worth 0 or if they are strings
-  // try{
-    
-  //   // loop through the AssignmentGroup object of objects (and an array)
-  //   for(let z = 0; z < ag.assignments[z]; z++){
-  //     // check if the points_possible is a non-zero value
-  //     // if so could cause some arithmetic headaches (dividing by 0 ... jk JavaScript would implicitly convert)
-  //     if(ag.assignments[z].points_possible === 0){
-  //       // if so throw out a notification to the user
-  //       throw("No points will be awarded for this assignment");
-  //     }
-  //     if(typeof(ag.assignments[z].points_possible) !== 'number'){
-  //       console.log("points_possible is not of 'number' type\n");
-  //       if(typeof(ag.assignments[z].points_possible) === 'string'){
-  //         throw("points_possible is of 'string' data type\n");
-  //       }
-  //     }
-  //   }
-  // }
-  // // catch the thrown error
-  // catch(err){
-  //   // display the error
-  //   console.log(err);
-  // }
+  // try-catch block to check if any of the learner submission scores are strings (not checking for zero's as it'll be in numerator)
+  try{
+
+    // loop through the LearnerSubmission array of objects
+    for(let z = 0; z < submissions.length; z++){
+
+      // if learner submission is a string
+      if(typeof(submissions[z].submission.score) === 'string'){
+        throw("Learner's submission score is a string\n");
+      }
+      // otherwise prompt this
+      else{
+        console.log("Learner submission scores are valid\n");
+      }
+    }
+  }
+  // catch the thrown error
+  catch(e){
+    // display the error
+    console.log(e);
+  }
 
 
   // let str = 'abc';
