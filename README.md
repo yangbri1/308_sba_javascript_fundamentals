@@ -9,29 +9,29 @@
 ## Technologies used
 ### JavaScript concepts:
   *  Conditional Statements
-    *  if, else if, else
+    -  if, else if, else
   *  Loops
-    *  for(), while(), .forEach()
+    -  for(), while(), .forEach()
   *  Loop Controls
-    * break
+    - break
   *  Error Handling
-    * try-catch statements, finally{}
+    - try-catch statements, finally{}
   *  JavaScript Collections
-    *  arrays[], objects{}
+    -  arrays[], objects{}
   *  JavaScript Methods
-    *  .push(), .unshift(), .splice(), .forEach(), .includes() ...
-    *  Number(), Date(), .getTime()
+    -  .push(), .unshift(), .splice(), .forEach(), .includes() ...
+    -  Number(), Date(), .getTime()
   *  Functions()
   *  Variables
-    * let, const
+    - let, const
   *  Other Data Types
-    * string, number, boolean, object, ...
+    - string, number, boolean, object, ...
   *  Operators
-    * Arithmetic: +, -, /, ++ (increment)
-    * Comparison: !=, == (loose[value]), === (strict[type & value])
-    * Logical: ||
-    * Assignment: =, +=
-    * String: ``, '', "" 
+    - Arithmetic: +, -, /, ++ (increment)
+    - Comparison: !=, == (loose[value]), === (strict[type & value])
+    - Logical: ||
+    - Assignment: =, +=
+    - String: ``, '', "" 
   
   * Others: Github add, commits; JavaScript syntax, VSCode debugger
     
@@ -45,23 +45,23 @@
 ### All used materials are stored in the "reference" folder of this repo
 
 - - - -
-## Conditional if-else statements, loops, try-catch error handling
-### https://ps-react-curriculum.herokuapp.com/308/2/lesson/
+### Conditional if-else statements, loops, try-catch error handling
+#### https://ps-react-curriculum.herokuapp.com/308/2/lesson/
 
-## Arrays, Objects, JavaScript methods
-### https://ps-react-curriculum.herokuapp.com/308/4/lesson/
+### Arrays, Objects, JavaScript methods
+#### https://ps-react-curriculum.herokuapp.com/308/4/lesson/
 
-## Functions
-### https://ps-react-curriculum.herokuapp.com/308H/5/lesson
+### Functions
+#### https://ps-react-curriculum.herokuapp.com/308H/5/lesson
 
-## Code Sandbox - given skeleton code
-### https://codesandbox.io/p/sandbox/sba-308-example-26sg4j?file=%2Fsrc%2Findex.js&from-embed=
+### Code Sandbox - given skeleton code
+#### https://codesandbox.io/p/sandbox/sba-308-example-26sg4j?file=%2Fsrc%2Findex.js&from-embed=
 
-## Properly comparing two dates and why it return a string if not used Date() correctly
-### https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript 
+### Properly comparing two dates and why it return a string if not used Date() correctly
+#### https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript 
 
-## Array.prototype.splice() -- this changes the array shallow copy, no need for re-assignment 
-### https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice 
+### Array.prototype.splice() -- this changes the array shallow copy, no need for re-assignment 
+#### https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice 
 
 - - - - 
-### Requirements include variables declaration using 'let' or 'const', operators to manipulate the data (arithmetic, string, etc.), different data types (string, numbers, Boolean) being cached to variables. In addition utilize 2 if-else statements or one switch statement, try-catch statements for error handling, 2 different types of loops, a loop control keyword ('break', 'continue'). Simultaneously, create and traverse JavaScript containers -- arrays using the bracket notation or objects via dot notation. Show how to access the array and object containers. Apply JavaScript array and object methods in appropriate circumstances. Generate functions for repetitive tasks. (Aside: Objects are unordered collection of properties) 
+### Implemented variables declaration using 'let' or 'const', operators to manipulate the data (arithmetic, string, etc.), different data types (string, numbers, Boolean) being cached to variables. In addition utilize 2 if-else statements or one switch statement, try-catch statements for error handling, 2 different types of loops, a loop control keyword ('break', 'continue'). Simultaneously, create and traverse JavaScript containers -- arrays using the bracket notation or objects via dot notation. Show how to access the array and object containers. Apply JavaScript array and object methods in appropriate circumstances. Generate functions for repetitive tasks. (Aside: Objects are unordered collection of properties) 
