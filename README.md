@@ -1,5 +1,5 @@
 # Project Name
-### Skill Based Assessment #2 --- 'JavaScript Fundamentals'
+### Skill Based Assessment #2 --- <em>JavaScript Fundamentals</em>
 - - - -
 
 ## Project Description
@@ -64,4 +64,4 @@
 #### https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice 
 
 - - - - 
-### 'Implemented variables declaration using 'let' or 'const', operators to manipulate the data (arithmetic, string, etc.), different data types (string, numbers, Boolean) being cached to variables. In addition utilize 2 if-else statements or one switch statement, try-catch statements for error handling, 2 different types of loops, a loop control keyword ('break', 'continue'). Simultaneously, create and traverse JavaScript containers -- arrays using the bracket notation or objects via dot notation. Show how to access the array and object containers. Apply JavaScript array and object methods in appropriate circumstances. Generate functions for repetitive tasks. (Aside: Objects are unordered collection of properties)' 
+> <em>Implemented variables declaration using 'let' or 'const', operators to manipulate the data (arithmetic, string, etc.), different data types (string, numbers, Boolean) being cached to variables. In addition utilize 2 if-else statements or one switch statement, try-catch statements for error handling, 2 different types of loops, a loop control keyword ('break', 'continue'). Simultaneously, create and traverse JavaScript containers -- arrays using the bracket notation or objects via dot notation. Show how to access the array and object containers. Apply JavaScript array and object methods in appropriate circumstances. Generate functions for repetitive tasks. (Aside: Objects are unordered collection of properties)</em> 
